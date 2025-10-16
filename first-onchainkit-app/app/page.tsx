@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Wallet } from "@coinbase/onchainkit/wallet";
-
+//Entry point to the app
 export default function Home() {
   return (
     <div className={styles.container}>
