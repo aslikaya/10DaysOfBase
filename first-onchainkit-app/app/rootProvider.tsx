@@ -29,8 +29,8 @@ export function RootProvider({ children }: { children: ReactNode }) {
               mode: "auto",
             },
             wallet: {
-              display: "modal", // wallet connection opens in modal mode
-              preference: "all", //displating all wallet options
+              display: "modal", // wallet connection opens in modal mode (popup overlay)
+              preference: "all", //displaying all wallet options
             },
           }}
         >
