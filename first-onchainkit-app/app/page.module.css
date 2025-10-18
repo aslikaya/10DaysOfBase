@@ -37,3 +37,218 @@
 .components a:hover {
   text-decoration: underline;
 }
+
+/* Greeter and Wallet UI Styles */
+.section {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: #111827;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.address {
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  color: #111827;
+  word-break: break-all;
+  background: #f3f4f6;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.balanceSection {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.balance {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0052ff;
+  margin-top: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  color: #111827;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0052ff;
+  box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.1);
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: #0052ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0.75rem;
+}
+
+.button:hover:not(:disabled) {
+  background: #0046dd;
+}
+
+.button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.signatureSection {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.signature {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #111827;
+  word-break: break-all;
+  background: #f3f4f6;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.greetingDisplay {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.currentGreeting {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0052ff;
+  background: #eff6ff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  word-break: break-word;
+}
+
+.updateSection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.transactionSection {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.txLink {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #0052ff;
+  word-break: break-all;
+  text-decoration: none;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.txLink:hover {
+  text-decoration: underline;
+}
+
+.successMessage {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #d1fae5;
+  border: 1px solid #6ee7b7;
+  border-radius: 8px;
+  color: #065f46;
+  font-weight: 500;
+  text-align: center;
+}
+
+.refreshButton {
+  padding: 0.5rem 1rem;
+  background: #0052ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: flex-start;
+}
+
+.refreshButton:hover {
+  background: #0046dd;
+}
+
+.errorMessage {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  color: #991b1b;
+  font-weight: 500;
+}
+
+.networkInfo {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-family: 'Courier New', monospace;
+}
+
+.connectPrompt {
+  font-size: 1.125rem;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 2rem;
+}

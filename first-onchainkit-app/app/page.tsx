@@ -15,7 +15,7 @@ export default function Home() {
   const { address, isConnected, chain } = useAccount();
   const { data: balance } = useBalance({ address });
   const { signMessage, data: signature, isPending: isSignPending } = useSignMessage();
-  const [message, setMessage] = useState("Hello from Base Sepolia");
+  const [message, setMessage] = useState("");
 
   const {
     greeting,
@@ -36,7 +36,7 @@ export default function Home() {
 
   useEffect(() => {
     if (isConfirmed && transactionHash) {
-      //fetches the updated new greeting 
+      //fetches the updated new greeting
       // `greeting` is not reactive to blockchain changes
       //so when greeting is changed on the blockchain, you need to refetch
       refetchGreeting();
@@ -116,11 +116,18 @@ export default function Home() {
               )}
 
               <div className={styles.card}>
-                <h2 className={styles.card}>Greeter Contract</h2>
+                <h2 className={styles.cardTitle}>Greeter Contract</h2>
                 <div className={styles.greetingDisplay}>
                   <p className={styles.label}>Current greeting:</p>
                   <p className={styles.currentGreeting}>
-                    {greeting ? String(greeting) : "Loading..."}</p>
+                    {greeting ? String(greeting) : "Loading..."}
+                  </p>
+                  <button
+                    onClick={() => refetchGreeting()}
+                    className={styles.refreshButton}
+                  >
+                    🔄 Refresh
+                  </button>
                 </div>
 
                 <div className={styles.updateSection}>
