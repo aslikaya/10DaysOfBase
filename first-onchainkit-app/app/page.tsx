@@ -8,6 +8,7 @@ import styles from "./page.module.css";
 import { Wallet } from "@coinbase/onchainkit/wallet";
 // useAccount to get the info from the connected wallet
 import { useAccount, useBalance, useSignMessage } from "wagmi";
+import { useGreeter } from "@/src/hooks/useGreeter";
 //Entry point to the app
 export default function Home() {
 
@@ -16,8 +17,40 @@ export default function Home() {
   const { signMessage, data: signature, isPending: isSignPending } = useSignMessage();
   const [message, setMessage] = useState("Hello from Base Sepolia");
 
+  const {
+    greeting,
+    refetchGreeting,
+    readError,
+    transactionHash,
+    isWritePending,
+    writeError,
+    isConfirming,
+    isConfirmed,
+    confirmError,
+    setGreeting,
+  } = useGreeter();
+  const [newGreeting, setNewGreeting] = useState("");
+
   // '?.' provides optional chaining, if 'chain' is undefined, it won't give errors
   const isCorrectNetwork = chain?.id === Number(process.env.NEXT_PUBLIC_CHAIN_ID);
+
+  useEffect(() => {
+    if (isConfirmed && transactionHash) {
+      //fetches the updated new greeting 
+      // `greeting` is not reactive to blockchain changes
+      //so when greeting is changed on the blockchain, you need to refetch
+      refetchGreeting();
+      setNewGreeting(""); //clears the input
+    }
+  }, [isConfirmed, transactionHash]);
+
+  const handleSetGreeting = () => {
+    // `trim()`deletes empty spaces at the beginning and at the end
+    // true if the string is not empty after trim
+    if (newGreeting.trim()) { // 
+      setGreeting(newGreeting);
+    }
+  };
 
   const handleSignMessage = () => {
     signMessage({ message });
@@ -82,10 +115,75 @@ export default function Home() {
                 </div>
               )}
 
+              <div className={styles.card}>
+                <h2 className={styles.card}>Greeter Contract</h2>
+                <div className={styles.greetingDisplay}>
+                  <p className={styles.label}>Current greeting:</p>
+                  <p className={styles.currentGreeting}>
+                    {greeting ? String(greeting) : "Loading..."}</p>
+                </div>
+
+                <div className={styles.updateSection}>
+                  <p className={styles.label}>Update Greeting:</p>
+                  <input
+                    type="text"
+                    value={newGreeting}
+                    onChange={(e) => setNewGreeting(e.target.value)}
+                    className={styles.input}
+                    placeholder="Enter new greeting"
+                  />
+                  <button
+                    onClick={handleSetGreeting}
+                    disabled={isWritePending || isConfirming || !newGreeting.trim()}
+                    className={styles.button}
+                  >
+                    {isWritePending
+                      ? "Sending Transaction..."
+                      : isConfirming
+                        ? "Confirming"
+                        : "Update Greeting"}
+                  </button>
+                </div>
+                {transactionHash && (
+                  <div className={styles.transactionSection}>
+                    <p className={styles.label}>Transaction Hash:</p>
+                    <a
+                      href={`https://sepolia.basescan.org/tx/${transactionHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.txLink}
+                    >
+                      {transactionHash}
+                    </a>
+                  </div>
+                )}
+
+                {isConfirmed && (
+                  <div className={styles.successMessage}>
+                    <p>Greeting updated successfully!</p>
+                  </div>
+                )}
+
+                {(writeError || confirmError) && (
+                  <div className={styles.errorMessage}>
+                    <p>Error: {writeError?.message || confirmError?.message}</p>
+                  </div>
+                )}
+                {readError && (
+                  <div className={styles.errorMessage}>
+                    <p>Failed to read contract. Check contract address and network</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
 
+        {!isConnected && (
+          <p className={styles.connectPrompt}>
+            Connect your wallet to get started
+          </p>
+        )}
       </div>
     </div>
   );
