@@ -5,17 +5,15 @@ import { baseSepolia } from "wagmi/chains";
 export const useGreeter = () => {
     //Calling greet() function in the smart contract 
     // and keeps the output in greeting variable
-    // if error happens, it will be kept in readError
-    const { data: greeting, refetch: refetchGreeting, error:readError } = useReadContract({
+    // if error happens, it will be kept in `readError`
+    const { data: greeting, refetch: refetchGreeting, error: readError } = useReadContract({
         address: GREETER_CONTRACT_ADDRESS,
         abi: GREETER_ABI,
         functionName: 'greet',
         chainId: baseSepolia.id,
     })
 
-    //writeFunction is the function to write to a contract
-    // hash: transaction hash
-    // isWritePending: is the current transaction waiting
+    // `writeFunction` is the function needed to write to a contract
     const {
         writeContract,
         data: transactionHash,
@@ -24,8 +22,6 @@ export const useGreeter = () => {
     } = useWriteContract()
 
     // Waiting for the confirmation after transaction sent to the mempool
-    // isConfirming: is it waiting for confirmation?
-    // isConfirmed: is it confirmed?
     // tracks the transaction with its hash
     const {
         isLoading: isConfirming,
@@ -36,7 +32,7 @@ export const useGreeter = () => {
         chainId: baseSepolia.id,
     })
 
-    // Calling the setGreeting function from the smart contract
+    // Calling the `setGreeting()` function from the smart contract
     const setGreeting = (greeting: string) => {
         writeContract({
             address: GREETER_CONTRACT_ADDRESS,
